@@ -1,4 +1,4 @@
-export const ComicReader = () => {
+const ComicReader = () => {
   return "Comic Reader";
 };
 
