@@ -1,0 +1,46 @@
+{
+  "name": "react-native-comic-reader",
+  "version": "0.0.1",
+  "description": "A React Native package for immersive comic reading experiences.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "tsc",
+    "ci": "yarn run lint && yarn run build",
+    "release": "yarn run lint && yarn run build && changeset publish"
+  },
+  "keywords": [
+    "react native comic",
+    "react native comic viewer",
+    "react native comic reader",
+    "comic",
+    "comic reader",
+    "comics",
+    "comics list",
+    "android",
+    "ios",
+    "comic book"
+  ],
+  "author": "Saeed Ahmed",
+  "license": "MIT",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.12.8",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asaeed14/react-native-comic-reader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/asaeed14/react-native-comic-reader/issues"
+  },
+  "homepage": "https://github.com/asaeed14/react-native-comic-reader#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}
