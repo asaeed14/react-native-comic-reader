@@ -36,13 +36,13 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 
 // src/ComicReader/index.tsx
-var import_react4 = require("react");
+var import_react8 = __toESM(require("react"));
 var import_react_native6 = require("react-native");
 var import_react_native_gesture_handler3 = require("react-native-gesture-handler");
 var import_react_native_reanimated5 = require("react-native-reanimated");
 
 // src/ComicReader/ComicZoomActionButton.tsx
-var import_react = require("react");
+var import_react = __toESM(require("react"));
 var import_react_native2 = require("react-native");
 var import_react_native_gesture_handler = require("react-native-gesture-handler");
 var import_react_native_reanimated = __toESM(require("react-native-reanimated"));
@@ -149,7 +149,7 @@ var styles = import_react_native.StyleSheet.create({
     height: 14,
     borderRadius: 12,
     borderWidth: 8,
-    marginLeft: -2,
+    marginLeft: -5,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -228,7 +228,7 @@ var ComicZoomActionButton = ({
     ),
     transform: [{ scale: bounceWithDelay.value }]
   }));
-  return /* @__PURE__ */ React.createElement(import_react_native_gesture_handler.GestureDetector, { gesture: movingGesture }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ import_react.default.createElement(import_react_native_gesture_handler.GestureDetector, { gesture: movingGesture }, /* @__PURE__ */ import_react.default.createElement(
     AnimatedTouchableOpacity,
     {
       style: [
@@ -237,7 +237,7 @@ var ComicZoomActionButton = ({
         buttonAnimatedStyles
       ]
     },
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       import_react_native_reanimated.default.View,
       {
         style: [
@@ -246,13 +246,13 @@ var ComicZoomActionButton = ({
         ]
       }
     ),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       import_react_native_reanimated.default.View,
       {
         style: [styles.actionButtonAnimatedWrapper, bounceAnimatedStyles]
       }
     ),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react.default.createElement(
       import_react_native2.TouchableOpacity,
       {
         style: [styles.actionButton],
@@ -429,13 +429,14 @@ var ComicImageView = ({
 var ComicImageView_default = import_react2.default.memo(ComicImageView);
 
 // src/ComicReader/footer.tsx
+var import_react7 = __toESM(require("react"));
 var import_react_native5 = require("react-native");
 var import_react_native_reanimated4 = __toESM(require("react-native-reanimated"));
 
 // src/ComicReader/icons/ArrowLeft.tsx
-var React3 = __toESM(require("react"));
+var import_react3 = __toESM(require("react"));
 var import_react_native_svg = __toESM(require("react-native-svg"));
-var ArrowLeft = (props) => /* @__PURE__ */ React3.createElement(import_react_native_svg.default, { width: 24, height: 24, ...props, viewBox: "0 0 330 330" }, /* @__PURE__ */ React3.createElement(
+var ArrowLeft = (props) => /* @__PURE__ */ import_react3.default.createElement(import_react_native_svg.default, { width: 24, height: 24, ...props, viewBox: "0 0 330 330" }, /* @__PURE__ */ import_react3.default.createElement(
   import_react_native_svg.Path,
   {
     fill: props.color || "#fff",
@@ -445,9 +446,9 @@ var ArrowLeft = (props) => /* @__PURE__ */ React3.createElement(import_react_nat
 var ArrowLeft_default = ArrowLeft;
 
 // src/ComicReader/icons/ArrowRight.tsx
-var React4 = __toESM(require("react"));
+var import_react4 = __toESM(require("react"));
 var import_react_native_svg2 = __toESM(require("react-native-svg"));
-var ArrowRight = (props) => /* @__PURE__ */ React4.createElement(import_react_native_svg2.default, { width: 24, height: 24, ...props, viewBox: "-4.5 0 20 20" }, /* @__PURE__ */ React4.createElement(
+var ArrowRight = (props) => /* @__PURE__ */ import_react4.default.createElement(import_react_native_svg2.default, { width: 24, height: 24, ...props, viewBox: "-4.5 0 20 20" }, /* @__PURE__ */ import_react4.default.createElement(
   import_react_native_svg2.Path,
   {
     fill: props?.color || "#fff",
@@ -458,9 +459,9 @@ var ArrowRight = (props) => /* @__PURE__ */ React4.createElement(import_react_na
 var ArrowRight_default = ArrowRight;
 
 // src/ComicReader/icons/Reverse.tsx
-var React5 = __toESM(require("react"));
+var import_react5 = __toESM(require("react"));
 var import_react_native_svg3 = __toESM(require("react-native-svg"));
-var Reverse = (props) => /* @__PURE__ */ React5.createElement(import_react_native_svg3.default, { width: 24, height: 24, ...props, viewBox: "0 0 256 256" }, /* @__PURE__ */ React5.createElement(
+var Reverse = (props) => /* @__PURE__ */ import_react5.default.createElement(import_react_native_svg3.default, { width: 24, height: 24, ...props, viewBox: "0 0 256 256" }, /* @__PURE__ */ import_react5.default.createElement(
   import_react_native_svg3.Path,
   {
     fill: props.color || "#fff",
@@ -471,9 +472,9 @@ var Reverse = (props) => /* @__PURE__ */ React5.createElement(import_react_nativ
 var Reverse_default = Reverse;
 
 // src/ComicReader/icons/Zoom.tsx
-var import_react3 = __toESM(require("react"));
+var import_react6 = __toESM(require("react"));
 var import_react_native_svg4 = __toESM(require("react-native-svg"));
-var Zoom = (props) => /* @__PURE__ */ import_react3.default.createElement(import_react_native_svg4.default, { width: 24, height: 24, ...props, viewBox: "0 0 32 32" }, /* @__PURE__ */ import_react3.default.createElement(
+var Zoom = (props) => /* @__PURE__ */ import_react6.default.createElement(import_react_native_svg4.default, { width: 24, height: 24, ...props, viewBox: "0 0 32 32" }, /* @__PURE__ */ import_react6.default.createElement(
   import_react_native_svg4.Path,
   {
     fill: props.color || "#fff",
@@ -527,14 +528,14 @@ var Footer = ({
       ]
     };
   });
-  return /* @__PURE__ */ React.createElement(import_react_native_reanimated4.default.View, { style: styles.footer, entering: import_react_native_reanimated4.FadeIn.duration(500) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated4.default.View, { style: styles.footer, entering: import_react_native_reanimated4.FadeIn.duration(500) }, /* @__PURE__ */ import_react7.default.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handlePrevSlide
     },
-    /* @__PURE__ */ React.createElement(ArrowLeft_default, { color: iconColor })
-  ), /* @__PURE__ */ React.createElement(import_react_native5.View, null, /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react7.default.createElement(ArrowLeft_default, { color: iconColor })
+  ), /* @__PURE__ */ import_react7.default.createElement(import_react_native5.View, null, /* @__PURE__ */ import_react7.default.createElement(
     import_react_native_reanimated4.default.View,
     {
       style: [
@@ -543,8 +544,8 @@ var Footer = ({
         footerBallonAnimatedStyles
       ]
     },
-    /* @__PURE__ */ React.createElement(import_react_native5.Text, { style: styles.currentComicIndexLabel }, currentComicIndex + 1),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react7.default.createElement(import_react_native5.Text, { style: styles.currentComicIndexLabel }, currentComicIndex + 1),
+    /* @__PURE__ */ import_react7.default.createElement(
       import_react_native5.View,
       {
         style: [
@@ -553,12 +554,12 @@ var Footer = ({
         ]
       }
     )
-  ), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ import_react7.default.createElement(
     import_react_native_reanimated4.default.View,
     {
       style: [styles.footerLine, { backgroundColor: primaryColor }]
     },
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react7.default.createElement(
       import_react_native_reanimated4.default.View,
       {
         style: [
@@ -568,7 +569,7 @@ var Footer = ({
         ]
       }
     ),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ import_react7.default.createElement(
       import_react_native_reanimated4.default.View,
       {
         style: [
@@ -577,7 +578,7 @@ var Footer = ({
           footerLineCircleAnimatedStyles
         ]
       },
-      /* @__PURE__ */ React.createElement(
+      /* @__PURE__ */ import_react7.default.createElement(
         import_react_native_reanimated4.default.View,
         {
           style: [
@@ -588,13 +589,13 @@ var Footer = ({
         }
       )
     )
-  )), /* @__PURE__ */ React.createElement(
+  )), /* @__PURE__ */ import_react7.default.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handleNextSlide
     },
-    /* @__PURE__ */ React.createElement(ArrowRight_default, { color: iconColor })
+    /* @__PURE__ */ import_react7.default.createElement(ArrowRight_default, { color: iconColor })
   ));
 };
 
@@ -606,15 +607,15 @@ var ComicReader = ({
   sliderPrimaryColor = "#E47886",
   sliderSecondaryColor = "#D84355"
 }) => {
-  const flatListRef = (0, import_react4.useRef)(null);
+  const flatListRef = (0, import_react8.useRef)(null);
   const numberOfItems = data.length;
-  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react4.useState)(0);
-  const [currentComicIndex, setCurrentComicIndex] = (0, import_react4.useState)(0);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = (0, import_react4.useState)(0);
-  const [isListScrollEnabled, setIsListScrollEnabled] = (0, import_react4.useState)(true);
+  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react8.useState)(0);
+  const [currentComicIndex, setCurrentComicIndex] = (0, import_react8.useState)(0);
+  const [currentAnimationIndex, setCurrentAnimationIndex] = (0, import_react8.useState)(0);
+  const [isListScrollEnabled, setIsListScrollEnabled] = (0, import_react8.useState)(true);
   const containerWidth = (0, import_react_native_reanimated5.useSharedValue)(0);
   const containerHeight = (0, import_react_native_reanimated5.useSharedValue)(0);
-  const [adjustedImageDimensions, setAdjustedImageDimensions] = (0, import_react4.useState)("");
+  const [adjustedImageDimensions, setAdjustedImageDimensions] = (0, import_react8.useState)("");
   const onLayout = (event) => {
     containerWidth.value = event.nativeEvent.layout.width;
     containerHeight.value = event.nativeEvent.layout.height;
@@ -691,7 +692,7 @@ var ComicReader = ({
     const h = event.nativeEvent.layout.height;
     setAdjustedImageDimensions(`${w},${h}`);
   };
-  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ React.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ React.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ React.createElement(Reverse_default, { color: iconsColor });
+  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ import_react8.default.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ import_react8.default.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ import_react8.default.createElement(Reverse_default, { color: iconsColor });
   const animatedComicImageStyles = (0, import_react_native_reanimated5.useAnimatedStyle)(() => ({
     transform: [
       { scale: comicImageScale.value },
@@ -699,7 +700,7 @@ var ComicReader = ({
       { translateY: comicImageY.value }
     ]
   }));
-  const renderItem = ({ item }) => /* @__PURE__ */ React.createElement(
+  const renderItem = ({ item }) => /* @__PURE__ */ import_react8.default.createElement(
     ComicImageView_default,
     {
       animatedComicImageStyles,
@@ -717,7 +718,7 @@ var ComicReader = ({
     footerBallonScale.value = (0, import_react_native_reanimated5.withDelay)(500, (0, import_react_native_reanimated5.withSpring)(0));
     footerBallonRotateZ.value = (0, import_react_native_reanimated5.withSpring)(0);
   };
-  return /* @__PURE__ */ React.createElement(import_react_native_gesture_handler3.GestureHandlerRootView, null, /* @__PURE__ */ React.createElement(import_react_native6.View, { style: styles.container, onLayout }, /* @__PURE__ */ React.createElement(import_react_native_gesture_handler3.GestureDetector, { gesture: composedComicImageGestures }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ import_react8.default.createElement(import_react_native_gesture_handler3.GestureHandlerRootView, null, /* @__PURE__ */ import_react8.default.createElement(import_react_native6.View, { style: styles.container, onLayout }, /* @__PURE__ */ import_react8.default.createElement(import_react_native_gesture_handler3.GestureDetector, { gesture: composedComicImageGestures }, /* @__PURE__ */ import_react8.default.createElement(
     import_react_native_gesture_handler3.FlatList,
     {
       ref: flatListRef,
@@ -760,7 +761,7 @@ var ComicReader = ({
         onScrollAnimationEnd(e.nativeEvent.contentOffset.x);
       }
     }
-  ))), /* @__PURE__ */ React.createElement(
+  ))), /* @__PURE__ */ import_react8.default.createElement(
     ComicZoomActionButton,
     {
       ...{
@@ -771,7 +772,7 @@ var ComicReader = ({
         zoomActionButtonColor
       }
     }
-  ), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ import_react8.default.createElement(
     Footer,
     {
       numberOfComics: numberOfItems,
