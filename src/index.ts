@@ -1,4 +1,5 @@
-import { ComicReader } from "./ComicReader";
+const ComicReader = () => {
+  return "Comic Reader";
+};
 
-export * as ComicReaderTypes from "./ComicReader/types";
-export { ComicReader };
+module.exports = ComicReader;
