@@ -1,5 +1,5 @@
 // src/ComicReader/index.tsx
-import { useRef, useState as useState2 } from "react";
+import React8, { useRef, useState as useState2 } from "react";
 import { View as View2 } from "react-native";
 import {
   FlatList,
@@ -16,7 +16,7 @@ import {
 } from "react-native-reanimated";
 
 // src/ComicReader/ComicZoomActionButton.tsx
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -131,7 +131,7 @@ var styles = StyleSheet.create({
     height: 14,
     borderRadius: 12,
     borderWidth: 8,
-    marginLeft: -2,
+    marginLeft: -5,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -416,6 +416,7 @@ var ComicImageView = ({
 var ComicImageView_default = React2.memo(ComicImageView);
 
 // src/ComicReader/footer.tsx
+import React7 from "react";
 import { Text, TouchableOpacity as TouchableOpacity2, View } from "react-native";
 import Animated3, {
   FadeIn,
@@ -424,7 +425,7 @@ import Animated3, {
 } from "react-native-reanimated";
 
 // src/ComicReader/icons/ArrowLeft.tsx
-import * as React3 from "react";
+import React3 from "react";
 import Svg, { Path } from "react-native-svg";
 var ArrowLeft = (props) => /* @__PURE__ */ React3.createElement(Svg, { width: 24, height: 24, ...props, viewBox: "0 0 330 330" }, /* @__PURE__ */ React3.createElement(
   Path,
@@ -436,7 +437,7 @@ var ArrowLeft = (props) => /* @__PURE__ */ React3.createElement(Svg, { width: 24
 var ArrowLeft_default = ArrowLeft;
 
 // src/ComicReader/icons/ArrowRight.tsx
-import * as React4 from "react";
+import React4 from "react";
 import Svg2, { Path as Path2 } from "react-native-svg";
 var ArrowRight = (props) => /* @__PURE__ */ React4.createElement(Svg2, { width: 24, height: 24, ...props, viewBox: "-4.5 0 20 20" }, /* @__PURE__ */ React4.createElement(
   Path2,
@@ -449,7 +450,7 @@ var ArrowRight = (props) => /* @__PURE__ */ React4.createElement(Svg2, { width: 
 var ArrowRight_default = ArrowRight;
 
 // src/ComicReader/icons/Reverse.tsx
-import * as React5 from "react";
+import React5 from "react";
 import Svg3, { Path as Path3 } from "react-native-svg";
 var Reverse = (props) => /* @__PURE__ */ React5.createElement(Svg3, { width: 24, height: 24, ...props, viewBox: "0 0 256 256" }, /* @__PURE__ */ React5.createElement(
   Path3,
@@ -518,14 +519,14 @@ var Footer = ({
       ]
     };
   });
-  return /* @__PURE__ */ React.createElement(Animated3.View, { style: styles.footer, entering: FadeIn.duration(500) }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React7.createElement(Animated3.View, { style: styles.footer, entering: FadeIn.duration(500) }, /* @__PURE__ */ React7.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handlePrevSlide
     },
-    /* @__PURE__ */ React.createElement(ArrowLeft_default, { color: iconColor })
-  ), /* @__PURE__ */ React.createElement(View, null, /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ React7.createElement(ArrowLeft_default, { color: iconColor })
+  ), /* @__PURE__ */ React7.createElement(View, null, /* @__PURE__ */ React7.createElement(
     Animated3.View,
     {
       style: [
@@ -534,8 +535,8 @@ var Footer = ({
         footerBallonAnimatedStyles
       ]
     },
-    /* @__PURE__ */ React.createElement(Text, { style: styles.currentComicIndexLabel }, currentComicIndex + 1),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ React7.createElement(Text, { style: styles.currentComicIndexLabel }, currentComicIndex + 1),
+    /* @__PURE__ */ React7.createElement(
       View,
       {
         style: [
@@ -544,12 +545,12 @@ var Footer = ({
         ]
       }
     )
-  ), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React7.createElement(
     Animated3.View,
     {
       style: [styles.footerLine, { backgroundColor: primaryColor }]
     },
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ React7.createElement(
       Animated3.View,
       {
         style: [
@@ -559,7 +560,7 @@ var Footer = ({
         ]
       }
     ),
-    /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ React7.createElement(
       Animated3.View,
       {
         style: [
@@ -568,7 +569,7 @@ var Footer = ({
           footerLineCircleAnimatedStyles
         ]
       },
-      /* @__PURE__ */ React.createElement(
+      /* @__PURE__ */ React7.createElement(
         Animated3.View,
         {
           style: [
@@ -579,13 +580,13 @@ var Footer = ({
         }
       )
     )
-  )), /* @__PURE__ */ React.createElement(
+  )), /* @__PURE__ */ React7.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handleNextSlide
     },
-    /* @__PURE__ */ React.createElement(ArrowRight_default, { color: iconColor })
+    /* @__PURE__ */ React7.createElement(ArrowRight_default, { color: iconColor })
   ));
 };
 
@@ -682,7 +683,7 @@ var ComicReader = ({
     const h = event.nativeEvent.layout.height;
     setAdjustedImageDimensions(`${w},${h}`);
   };
-  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ React.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ React.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ React.createElement(Reverse_default, { color: iconsColor });
+  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ React8.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ React8.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ React8.createElement(Reverse_default, { color: iconsColor });
   const animatedComicImageStyles = useAnimatedStyle4(() => ({
     transform: [
       { scale: comicImageScale.value },
@@ -690,7 +691,7 @@ var ComicReader = ({
       { translateY: comicImageY.value }
     ]
   }));
-  const renderItem = ({ item }) => /* @__PURE__ */ React.createElement(
+  const renderItem = ({ item }) => /* @__PURE__ */ React8.createElement(
     ComicImageView_default,
     {
       animatedComicImageStyles,
@@ -708,7 +709,7 @@ var ComicReader = ({
     footerBallonScale.value = withDelay2(500, withSpring(0));
     footerBallonRotateZ.value = withSpring(0);
   };
-  return /* @__PURE__ */ React.createElement(GestureHandlerRootView, null, /* @__PURE__ */ React.createElement(View2, { style: styles.container, onLayout }, /* @__PURE__ */ React.createElement(GestureDetector2, { gesture: composedComicImageGestures }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React8.createElement(GestureHandlerRootView, null, /* @__PURE__ */ React8.createElement(View2, { style: styles.container, onLayout }, /* @__PURE__ */ React8.createElement(GestureDetector2, { gesture: composedComicImageGestures }, /* @__PURE__ */ React8.createElement(
     FlatList,
     {
       ref: flatListRef,
@@ -751,7 +752,7 @@ var ComicReader = ({
         onScrollAnimationEnd(e.nativeEvent.contentOffset.x);
       }
     }
-  ))), /* @__PURE__ */ React.createElement(
+  ))), /* @__PURE__ */ React8.createElement(
     ComicZoomActionButton,
     {
       ...{
@@ -762,7 +763,7 @@ var ComicReader = ({
         zoomActionButtonColor
       }
     }
-  ), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React8.createElement(
     Footer,
     {
       numberOfComics: numberOfItems,
