@@ -22,17 +22,18 @@ export type ComicReaderProps = {
   sliderSecondaryColor?: string;
   iconsColor?: string;
   zoomActionButtonColor?: string;
+  textColor?: string;
 };
 
 export type FooterProps = {
   numberOfComics: number;
   currentComicIndex: number;
-  currentAnimationIndex: number;
   onUpdateComicIndex: (index: number) => void;
   animations: any;
   primaryColor: string;
   secondaryColor: string;
   iconColor: string;
+  textColor: string;
 };
 
 export type ComicZoomActionButtonProps = {
@@ -47,19 +48,19 @@ export type LocalImageSource = ImageRequireSource;
 export type RemoteImageSource = { uri: string };
 export type ImageSource = LocalImageSource | RemoteImageSource;
 
-export type GetActualImageDimensionsReturnProps = {
+export type GetOriginalImageDimensionsReturnProps = {
   originalImageWidth: number;
   originalImageHeight: number;
 };
 
 export type ComicImageViewProps = {
   imageSource: ImageSource;
-  animatedComicImageStyles: {};
+  animatedComicImageStyles: {} | null;
   currentComicIndex: number;
   onLayout: (event: LayoutChangeEvent) => void;
 };
 
-export type useFooterAnimationsProps = {
+export type useCustomAnimationsProps = {
   containerWidth: SharedValue<number>;
   containerHeight: SharedValue<number>;
   setIsListScrollEnabled: (e: boolean) => void;

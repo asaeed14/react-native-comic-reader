@@ -18,16 +18,17 @@ type ComicReaderProps = {
     sliderSecondaryColor?: string;
     iconsColor?: string;
     zoomActionButtonColor?: string;
+    textColor?: string;
 };
 type FooterProps = {
     numberOfComics: number;
     currentComicIndex: number;
-    currentAnimationIndex: number;
     onUpdateComicIndex: (index: number) => void;
     animations: any;
     primaryColor: string;
     secondaryColor: string;
     iconColor: string;
+    textColor: string;
 };
 type ComicZoomActionButtonProps = {
     containerWidth: SharedValue<number>;
@@ -41,17 +42,17 @@ type RemoteImageSource = {
     uri: string;
 };
 type ImageSource = LocalImageSource | RemoteImageSource;
-type GetActualImageDimensionsReturnProps = {
+type GetOriginalImageDimensionsReturnProps = {
     originalImageWidth: number;
     originalImageHeight: number;
 };
 type ComicImageViewProps = {
     imageSource: ImageSource;
-    animatedComicImageStyles: {};
+    animatedComicImageStyles: {} | null;
     currentComicIndex: number;
     onLayout: (event: LayoutChangeEvent) => void;
 };
-type useFooterAnimationsProps = {
+type useCustomAnimationsProps = {
     containerWidth: SharedValue<number>;
     containerHeight: SharedValue<number>;
     setIsListScrollEnabled: (e: boolean) => void;
@@ -62,15 +63,15 @@ type types_ComicItem = ComicItem;
 type types_ComicReaderProps = ComicReaderProps;
 type types_ComicZoomActionButtonProps = ComicZoomActionButtonProps;
 type types_FooterProps = FooterProps;
-type types_GetActualImageDimensionsReturnProps = GetActualImageDimensionsReturnProps;
+type types_GetOriginalImageDimensionsReturnProps = GetOriginalImageDimensionsReturnProps;
 type types_ImageSource = ImageSource;
 type types_LocalImageSource = LocalImageSource;
 type types_RemoteImageSource = RemoteImageSource;
-type types_useFooterAnimationsProps = useFooterAnimationsProps;
+type types_useCustomAnimationsProps = useCustomAnimationsProps;
 declare namespace types {
-  export type { types_ComicImageViewProps as ComicImageViewProps, types_ComicItem as ComicItem, types_ComicReaderProps as ComicReaderProps, types_ComicZoomActionButtonProps as ComicZoomActionButtonProps, types_FooterProps as FooterProps, types_GetActualImageDimensionsReturnProps as GetActualImageDimensionsReturnProps, types_ImageSource as ImageSource, types_LocalImageSource as LocalImageSource, types_RemoteImageSource as RemoteImageSource, types_useFooterAnimationsProps as useFooterAnimationsProps };
+  export type { types_ComicImageViewProps as ComicImageViewProps, types_ComicItem as ComicItem, types_ComicReaderProps as ComicReaderProps, types_ComicZoomActionButtonProps as ComicZoomActionButtonProps, types_FooterProps as FooterProps, types_GetOriginalImageDimensionsReturnProps as GetOriginalImageDimensionsReturnProps, types_ImageSource as ImageSource, types_LocalImageSource as LocalImageSource, types_RemoteImageSource as RemoteImageSource, types_useCustomAnimationsProps as useCustomAnimationsProps };
 }
 
-declare const ComicReader: ({ data, zoomActionButtonColor, iconsColor, sliderPrimaryColor, sliderSecondaryColor, }: ComicReaderProps) => JSX.Element;
+declare const ComicReader: ({ data, zoomActionButtonColor, iconsColor, sliderPrimaryColor, sliderSecondaryColor, textColor, }: ComicReaderProps) => JSX.Element;
 
 export { ComicReader, types as ComicReaderTypes };

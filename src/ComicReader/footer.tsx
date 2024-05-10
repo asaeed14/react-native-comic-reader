@@ -21,6 +21,7 @@ export const Footer = ({
   primaryColor,
   secondaryColor,
   iconColor,
+  textColor,
 }: FooterProps) => {
   const handleNextSlide = () => {
     if (currentComicIndex === numberOfComics - 1) {
@@ -77,7 +78,7 @@ export const Footer = ({
             footerBallonAnimatedStyles,
           ]}
         >
-          <Text style={styles.currentComicIndexLabel}>
+          <Text style={[styles.currentComicIndexLabel, { color: textColor }]}>
             {currentComicIndex + 1}
           </Text>
           <View

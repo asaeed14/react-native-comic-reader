@@ -36,23 +36,18 @@ __export(src_exports, {
 module.exports = __toCommonJS(src_exports);
 
 // src/ComicReader/index.tsx
-var import_react8 = __toESM(require("react"));
+var import_react9 = __toESM(require("react"));
 var import_react_native6 = require("react-native");
 var import_react_native_gesture_handler3 = require("react-native-gesture-handler");
 var import_react_native_reanimated5 = require("react-native-reanimated");
-
-// src/ComicReader/ComicZoomActionButton.tsx
-var import_react = __toESM(require("react"));
-var import_react_native2 = require("react-native");
-var import_react_native_gesture_handler = require("react-native-gesture-handler");
-var import_react_native_reanimated = __toESM(require("react-native-reanimated"));
 
 // src/ComicReader/style.ts
 var import_react_native = require("react-native");
 var screenWidth = import_react_native.Dimensions.get("window").width;
 var screenHeight = import_react_native.Dimensions.get("window").height;
 var ACTION_BUTTON_SIZE = 50;
-var FOOTER_LINE_WIDTH = screenWidth - 70;
+var HORIZONTAL_SPACING = 70;
+var FOOTER_LINE_WIDTH = screenWidth - HORIZONTAL_SPACING;
 var styles = import_react_native.StyleSheet.create({
   container: {
     flex: 1
@@ -161,6 +156,10 @@ var styles = import_react_native.StyleSheet.create({
 });
 
 // src/ComicReader/ComicZoomActionButton.tsx
+var import_react = __toESM(require("react"));
+var import_react_native2 = require("react-native");
+var import_react_native_gesture_handler = require("react-native-gesture-handler");
+var import_react_native_reanimated = __toESM(require("react-native-reanimated"));
 var AnimatedTouchableOpacity = import_react_native_reanimated.default.createAnimatedComponent(import_react_native2.TouchableOpacity);
 var ComicZoomActionButton = ({
   containerWidth,
@@ -263,10 +262,111 @@ var ComicZoomActionButton = ({
   ));
 };
 
-// src/ComicReader/animations.ts
+// src/ComicReader/icons/ArrowLeft.tsx
+var import_react2 = __toESM(require("react"));
+var import_react_native_svg = __toESM(require("react-native-svg"));
+var ArrowLeft = (props) => /* @__PURE__ */ import_react2.default.createElement(import_react_native_svg.default, { width: 24, height: 24, ...props, viewBox: "0 0 330 330" }, /* @__PURE__ */ import_react2.default.createElement(
+  import_react_native_svg.Path,
+  {
+    fill: props.color || "#fff",
+    d: "M111.213 165.004 250.607 25.607c5.858-5.858 5.858-15.355 0-21.213-5.858-5.858-15.355-5.858-21.213.001l-150 150.004a15 15 0 0 0 0 21.212l150 149.996C232.322 328.536 236.161 330 240 330s7.678-1.464 10.607-4.394c5.858-5.858 5.858-15.355 0-21.213L111.213 165.004z"
+  }
+));
+var ArrowLeft_default = ArrowLeft;
+
+// src/ComicReader/icons/ArrowRight.tsx
+var import_react3 = __toESM(require("react"));
+var import_react_native_svg2 = __toESM(require("react-native-svg"));
+var ArrowRight = (props) => /* @__PURE__ */ import_react3.default.createElement(import_react_native_svg2.default, { width: 24, height: 24, ...props, viewBox: "-4.5 0 20 20" }, /* @__PURE__ */ import_react3.default.createElement(
+  import_react_native_svg2.Path,
+  {
+    fill: props?.color || "#fff",
+    fillRule: "evenodd",
+    d: "M.366 19.708c.405.39 1.06.39 1.464 0l8.563-8.264a1.95 1.95 0 0 0 0-2.827L1.768.292A1.063 1.063 0 0 0 .314.282a.976.976 0 0 0-.011 1.425l7.894 7.617a.975.975 0 0 1 0 1.414L.366 18.295a.974.974 0 0 0 0 1.413"
+  }
+));
+var ArrowRight_default = ArrowRight;
+
+// src/ComicReader/icons/Reverse.tsx
+var import_react4 = __toESM(require("react"));
+var import_react_native_svg3 = __toESM(require("react-native-svg"));
+var Reverse = (props) => /* @__PURE__ */ import_react4.default.createElement(import_react_native_svg3.default, { width: 24, height: 24, ...props, viewBox: "0 0 256 256" }, /* @__PURE__ */ import_react4.default.createElement(
+  import_react_native_svg3.Path,
+  {
+    fill: props.color || "#fff",
+    fillRule: "evenodd",
+    d: "M55.265 167.072c-.975-1.973-3.388-2.796-5.372-1.847L42 169s22.5 53.5 85.5 56c60-1.5 96.627-48.626 97-96.5.373-47.874-37-95.5-95.5-96-57.5-1-79.556 45.004-79.556 45.004-1.073 1.93-1.944 1.698-1.944-.501V51.997a4 4 0 0 0-4-3.997H37c-2.209 0-4 1.8-4 4.008v48.984A3.998 3.998 0 0 0 36.998 105h50.504a3.995 3.995 0 0 0 3.998-3.993v-6.014c0-2.205-1.79-4.02-4.008-4.053l-25.484-.38c-2.214-.033-3.223-1.679-2.182-3.628C59.826 86.932 78 45 128.5 45.5c49 .5 82.751 41.929 82.5 83.242C208 184 166 211 127.5 210c-54.5 0-72.235-42.928-72.235-42.928z"
+  }
+));
+var Reverse_default = Reverse;
+
+// src/ComicReader/icons/Zoom.tsx
+var import_react5 = __toESM(require("react"));
+var import_react_native_svg4 = __toESM(require("react-native-svg"));
+var Zoom = (props) => /* @__PURE__ */ import_react5.default.createElement(import_react_native_svg4.default, { width: 24, height: 24, ...props, viewBox: "0 0 32 32" }, /* @__PURE__ */ import_react5.default.createElement(
+  import_react_native_svg4.Path,
+  {
+    fill: props.color || "#fff",
+    fillRule: "evenodd",
+    d: "M13.46 24.45c-6.29 0-11.39-5.01-11.39-11.2 0-6.19 5.1-11.21 11.39-11.21 6.29 0 11.39 5.02 11.39 11.21 0 6.19-5.1 11.2-11.39 11.2Zm18.228 5.8-8.259-8.13c2.163-2.35 3.491-5.45 3.491-8.87C26.92 5.93 20.894 0 13.46 0 6.026 0 0 5.93 0 13.25c0 7.31 6.026 13.24 13.46 13.24a13.52 13.52 0 0 0 8.472-2.96l8.293 8.16c.404.4 1.059.4 1.463 0 .405-.39.405-1.04 0-1.44ZM18.519 12.41h-3.997v-4c0-.56-.447-1-.999-1a.995.995 0 0 0-.999 1v4H8.529c-.551 0-.999.18-.999.73 0 .56.448 1.27.999 1.27h3.995v4c0 .56.448 1 .999 1 .552 0 .999-.44.999-1v-4h3.997c.551 0 .999-.45.999-1s-.448-1-.999-1Z"
+  }
+));
+var Zoom_default = Zoom;
+
+// src/ComicReader/util.ts
+var import_react_native3 = require("react-native");
+var import_react6 = require("react");
+var imageDimensionsCache = {};
+var useOriginalImageDimensions = () => {
+  const getOriginalImageDimensions = (0, import_react6.useCallback)(
+    async (imageSource) => {
+      try {
+        let originalImageWidth = 0;
+        let originalImageHeight = 0;
+        if (imageSource?.uri) {
+          if (imageDimensionsCache[imageSource.uri]) {
+            const { width, height } = imageDimensionsCache[imageSource.uri];
+            originalImageWidth = width;
+            originalImageHeight = height;
+          } else {
+            const { width, height } = await getImageSize(imageSource.uri);
+            originalImageWidth = width;
+            originalImageHeight = height;
+            imageDimensionsCache[imageSource.uri] = { width, height };
+          }
+        } else {
+          const { width, height } = import_react_native3.Image.resolveAssetSource(imageSource);
+          originalImageWidth = width;
+          originalImageHeight = height;
+        }
+        return { originalImageWidth, originalImageHeight };
+      } catch (error) {
+        console.error("Error fetching image dimensions:", error);
+        return { originalImageWidth: 0, originalImageHeight: 0 };
+      }
+    },
+    []
+  );
+  return { getOriginalImageDimensions };
+};
+var getImageSize = async (uri) => {
+  return new Promise((resolve, reject) => {
+    import_react_native3.Image.getSize(
+      uri,
+      (width, height) => {
+        resolve({ width, height });
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+  });
+};
+
+// src/ComicReader/useCustomAnimations.ts
 var import_react_native_reanimated2 = require("react-native-reanimated");
 var import_react_native_gesture_handler2 = require("react-native-gesture-handler");
-var useFooterAnimations = ({
+var useCustomAnimations = ({
   containerWidth,
   containerHeight,
   setIsListScrollEnabled
@@ -358,36 +458,8 @@ var useFooterAnimations = ({
   };
 };
 
-// src/ComicReader/util.ts
-var import_react_native3 = require("react-native");
-var getActualImageDimensions = async (imageSource) => {
-  let w = 0;
-  let h = 0;
-  if (imageSource?.uri) {
-    await import_react_native3.Image.getSize(
-      //@ts-ignore
-      imageSource.uri,
-      (width, height) => {
-        w = width;
-        h = height;
-      },
-      (error) => console.error(error)
-    );
-    return {
-      originalImageWidth: w,
-      originalImageHeight: h
-    };
-  } else {
-    const { width, height } = import_react_native3.Image.resolveAssetSource(imageSource);
-    return {
-      originalImageWidth: width,
-      originalImageHeight: height
-    };
-  }
-};
-
 // src/ComicReader/ComicImageView.tsx
-var import_react2 = __toESM(require("react"));
+var import_react7 = __toESM(require("react"));
 var import_react_native4 = require("react-native");
 var import_react_native_reanimated3 = __toESM(require("react-native-reanimated"));
 var ComicImageView = ({
@@ -396,7 +468,7 @@ var ComicImageView = ({
   currentComicIndex,
   onLayout
 }) => {
-  const [isLoading, setIsLoading] = (0, import_react2.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react7.useState)(false);
   const loading = (0, import_react_native_reanimated3.useSharedValue)(0.3);
   const onLoadEnd = () => {
     setIsLoading(false);
@@ -404,7 +476,7 @@ var ComicImageView = ({
   const onLoadStart = () => {
     setIsLoading(true);
   };
-  (0, import_react2.useEffect)(() => {
+  (0, import_react7.useEffect)(() => {
     if (isLoading) {
       loading.value = (0, import_react_native_reanimated3.withRepeat)((0, import_react_native_reanimated3.withTiming)(0.8, { duration: 1e3 }), 0, true);
     } else {
@@ -414,77 +486,27 @@ var ComicImageView = ({
   const loadingAnimatedStyles = (0, import_react_native_reanimated3.useAnimatedStyle)(() => ({
     opacity: loading.value
   }));
-  return /* @__PURE__ */ import_react2.default.createElement(import_react_native_reanimated3.default.View, { key: currentComicIndex }, /* @__PURE__ */ import_react2.default.createElement(
+  return /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated3.default.View, { key: currentComicIndex }, /* @__PURE__ */ import_react7.default.createElement(
     import_react_native_reanimated3.default.Image,
     {
       source: imageSource,
-      style: [styles.image, animatedComicImageStyles],
+      style: [
+        styles.image,
+        animatedComicImageStyles ? animatedComicImageStyles : null
+      ],
       resizeMode: "contain",
       onLayout,
       onLoadEnd,
       onLoadStart
     }
-  ), isLoading ? /* @__PURE__ */ import_react2.default.createElement(import_react_native_reanimated3.default.View, { style: [styles.imageLoader, loadingAnimatedStyles] }, /* @__PURE__ */ import_react2.default.createElement(import_react_native4.ActivityIndicator, null)) : null);
+  ), isLoading ? /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated3.default.View, { style: [styles.imageLoader, loadingAnimatedStyles] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native4.ActivityIndicator, null)) : null);
 };
-var ComicImageView_default = import_react2.default.memo(ComicImageView);
+var ComicImageView_default = import_react7.default.memo(ComicImageView);
 
 // src/ComicReader/footer.tsx
-var import_react7 = __toESM(require("react"));
+var import_react8 = __toESM(require("react"));
 var import_react_native5 = require("react-native");
 var import_react_native_reanimated4 = __toESM(require("react-native-reanimated"));
-
-// src/ComicReader/icons/ArrowLeft.tsx
-var import_react3 = __toESM(require("react"));
-var import_react_native_svg = __toESM(require("react-native-svg"));
-var ArrowLeft = (props) => /* @__PURE__ */ import_react3.default.createElement(import_react_native_svg.default, { width: 24, height: 24, ...props, viewBox: "0 0 330 330" }, /* @__PURE__ */ import_react3.default.createElement(
-  import_react_native_svg.Path,
-  {
-    fill: props.color || "#fff",
-    d: "M111.213 165.004 250.607 25.607c5.858-5.858 5.858-15.355 0-21.213-5.858-5.858-15.355-5.858-21.213.001l-150 150.004a15 15 0 0 0 0 21.212l150 149.996C232.322 328.536 236.161 330 240 330s7.678-1.464 10.607-4.394c5.858-5.858 5.858-15.355 0-21.213L111.213 165.004z"
-  }
-));
-var ArrowLeft_default = ArrowLeft;
-
-// src/ComicReader/icons/ArrowRight.tsx
-var import_react4 = __toESM(require("react"));
-var import_react_native_svg2 = __toESM(require("react-native-svg"));
-var ArrowRight = (props) => /* @__PURE__ */ import_react4.default.createElement(import_react_native_svg2.default, { width: 24, height: 24, ...props, viewBox: "-4.5 0 20 20" }, /* @__PURE__ */ import_react4.default.createElement(
-  import_react_native_svg2.Path,
-  {
-    fill: props?.color || "#fff",
-    fillRule: "evenodd",
-    d: "M.366 19.708c.405.39 1.06.39 1.464 0l8.563-8.264a1.95 1.95 0 0 0 0-2.827L1.768.292A1.063 1.063 0 0 0 .314.282a.976.976 0 0 0-.011 1.425l7.894 7.617a.975.975 0 0 1 0 1.414L.366 18.295a.974.974 0 0 0 0 1.413"
-  }
-));
-var ArrowRight_default = ArrowRight;
-
-// src/ComicReader/icons/Reverse.tsx
-var import_react5 = __toESM(require("react"));
-var import_react_native_svg3 = __toESM(require("react-native-svg"));
-var Reverse = (props) => /* @__PURE__ */ import_react5.default.createElement(import_react_native_svg3.default, { width: 24, height: 24, ...props, viewBox: "0 0 256 256" }, /* @__PURE__ */ import_react5.default.createElement(
-  import_react_native_svg3.Path,
-  {
-    fill: props.color || "#fff",
-    fillRule: "evenodd",
-    d: "M55.265 167.072c-.975-1.973-3.388-2.796-5.372-1.847L42 169s22.5 53.5 85.5 56c60-1.5 96.627-48.626 97-96.5.373-47.874-37-95.5-95.5-96-57.5-1-79.556 45.004-79.556 45.004-1.073 1.93-1.944 1.698-1.944-.501V51.997a4 4 0 0 0-4-3.997H37c-2.209 0-4 1.8-4 4.008v48.984A3.998 3.998 0 0 0 36.998 105h50.504a3.995 3.995 0 0 0 3.998-3.993v-6.014c0-2.205-1.79-4.02-4.008-4.053l-25.484-.38c-2.214-.033-3.223-1.679-2.182-3.628C59.826 86.932 78 45 128.5 45.5c49 .5 82.751 41.929 82.5 83.242C208 184 166 211 127.5 210c-54.5 0-72.235-42.928-72.235-42.928z"
-  }
-));
-var Reverse_default = Reverse;
-
-// src/ComicReader/icons/Zoom.tsx
-var import_react6 = __toESM(require("react"));
-var import_react_native_svg4 = __toESM(require("react-native-svg"));
-var Zoom = (props) => /* @__PURE__ */ import_react6.default.createElement(import_react_native_svg4.default, { width: 24, height: 24, ...props, viewBox: "0 0 32 32" }, /* @__PURE__ */ import_react6.default.createElement(
-  import_react_native_svg4.Path,
-  {
-    fill: props.color || "#fff",
-    fillRule: "evenodd",
-    d: "M13.46 24.45c-6.29 0-11.39-5.01-11.39-11.2 0-6.19 5.1-11.21 11.39-11.21 6.29 0 11.39 5.02 11.39 11.21 0 6.19-5.1 11.2-11.39 11.2Zm18.228 5.8-8.259-8.13c2.163-2.35 3.491-5.45 3.491-8.87C26.92 5.93 20.894 0 13.46 0 6.026 0 0 5.93 0 13.25c0 7.31 6.026 13.24 13.46 13.24a13.52 13.52 0 0 0 8.472-2.96l8.293 8.16c.404.4 1.059.4 1.463 0 .405-.39.405-1.04 0-1.44ZM18.519 12.41h-3.997v-4c0-.56-.447-1-.999-1a.995.995 0 0 0-.999 1v4H8.529c-.551 0-.999.18-.999.73 0 .56.448 1.27.999 1.27h3.995v4c0 .56.448 1 .999 1 .552 0 .999-.44.999-1v-4h3.997c.551 0 .999-.45.999-1s-.448-1-.999-1Z"
-  }
-));
-var Zoom_default = Zoom;
-
-// src/ComicReader/footer.tsx
 var AnimatedTouchableOpacity2 = import_react_native_reanimated4.default.createAnimatedComponent(import_react_native5.TouchableOpacity);
 var Footer = ({
   numberOfComics,
@@ -493,7 +515,8 @@ var Footer = ({
   animations,
   primaryColor,
   secondaryColor,
-  iconColor
+  iconColor,
+  textColor
 }) => {
   const handleNextSlide = () => {
     if (currentComicIndex === numberOfComics - 1) {
@@ -528,14 +551,14 @@ var Footer = ({
       ]
     };
   });
-  return /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated4.default.View, { style: styles.footer, entering: import_react_native_reanimated4.FadeIn.duration(500) }, /* @__PURE__ */ import_react7.default.createElement(
+  return /* @__PURE__ */ import_react8.default.createElement(import_react_native_reanimated4.default.View, { style: styles.footer, entering: import_react_native_reanimated4.FadeIn.duration(500) }, /* @__PURE__ */ import_react8.default.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handlePrevSlide
     },
-    /* @__PURE__ */ import_react7.default.createElement(ArrowLeft_default, { color: iconColor })
-  ), /* @__PURE__ */ import_react7.default.createElement(import_react_native5.View, null, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react8.default.createElement(ArrowLeft_default, { color: iconColor })
+  ), /* @__PURE__ */ import_react8.default.createElement(import_react_native5.View, null, /* @__PURE__ */ import_react8.default.createElement(
     import_react_native_reanimated4.default.View,
     {
       style: [
@@ -544,8 +567,8 @@ var Footer = ({
         footerBallonAnimatedStyles
       ]
     },
-    /* @__PURE__ */ import_react7.default.createElement(import_react_native5.Text, { style: styles.currentComicIndexLabel }, currentComicIndex + 1),
-    /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react8.default.createElement(import_react_native5.Text, { style: [styles.currentComicIndexLabel, { color: textColor }] }, currentComicIndex + 1),
+    /* @__PURE__ */ import_react8.default.createElement(
       import_react_native5.View,
       {
         style: [
@@ -554,12 +577,12 @@ var Footer = ({
         ]
       }
     )
-  ), /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react8.default.createElement(
     import_react_native_reanimated4.default.View,
     {
       style: [styles.footerLine, { backgroundColor: primaryColor }]
     },
-    /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react8.default.createElement(
       import_react_native_reanimated4.default.View,
       {
         style: [
@@ -569,7 +592,7 @@ var Footer = ({
         ]
       }
     ),
-    /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react8.default.createElement(
       import_react_native_reanimated4.default.View,
       {
         style: [
@@ -578,7 +601,7 @@ var Footer = ({
           footerLineCircleAnimatedStyles
         ]
       },
-      /* @__PURE__ */ import_react7.default.createElement(
+      /* @__PURE__ */ import_react8.default.createElement(
         import_react_native_reanimated4.default.View,
         {
           style: [
@@ -589,13 +612,13 @@ var Footer = ({
         }
       )
     )
-  )), /* @__PURE__ */ import_react7.default.createElement(
+  )), /* @__PURE__ */ import_react8.default.createElement(
     AnimatedTouchableOpacity2,
     {
       style: styles.arrowWrapper,
       onPress: handleNextSlide
     },
-    /* @__PURE__ */ import_react7.default.createElement(ArrowRight_default, { color: iconColor })
+    /* @__PURE__ */ import_react8.default.createElement(ArrowRight_default, { color: iconColor })
   ));
 };
 
@@ -605,21 +628,54 @@ var ComicReader = ({
   zoomActionButtonColor = "#D84355",
   iconsColor = "#FFF",
   sliderPrimaryColor = "#E47886",
-  sliderSecondaryColor = "#D84355"
+  sliderSecondaryColor = "#D84355",
+  textColor = "#FFF"
 }) => {
-  const flatListRef = (0, import_react8.useRef)(null);
+  const flatListRef = (0, import_react9.useRef)(null);
   const numberOfItems = data.length;
-  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react8.useState)(0);
-  const [currentComicIndex, setCurrentComicIndex] = (0, import_react8.useState)(0);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = (0, import_react8.useState)(0);
-  const [isListScrollEnabled, setIsListScrollEnabled] = (0, import_react8.useState)(true);
+  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react9.useState)(0);
+  const [currentComicIndex, setCurrentComicIndex] = (0, import_react9.useState)(0);
+  const [isListScrollEnabled, setIsListScrollEnabled] = (0, import_react9.useState)(true);
+  const [comicBoundaries, setComicBoundaries] = (0, import_react9.useState)([]);
   const containerWidth = (0, import_react_native_reanimated5.useSharedValue)(0);
   const containerHeight = (0, import_react_native_reanimated5.useSharedValue)(0);
-  const [adjustedImageDimensions, setAdjustedImageDimensions] = (0, import_react8.useState)("");
+  const [originalImageDimensions, setOriginalImageDimensions] = (0, import_react9.useState)({
+    width: 0,
+    height: 0
+  });
+  const [adjustedImageDimensions, setAdjustedImageDimensions] = (0, import_react9.useState)({
+    width: 0,
+    height: 0
+  });
   const onLayout = (event) => {
     containerWidth.value = event.nativeEvent.layout.width;
     containerHeight.value = event.nativeEvent.layout.height;
   };
+  const { getOriginalImageDimensions } = useOriginalImageDimensions();
+  (0, import_react9.useEffect)(() => {
+    setComicBoundaries(
+      data.map((_item, index) => {
+        return screenWidth * index;
+      })
+    );
+  }, []);
+  (0, import_react9.useEffect)(() => {
+    const fetchImageDimensions = async () => {
+      try {
+        const dimensions = await getOriginalImageDimensions(
+          // @ts-ignore
+          data[currentComicIndex].imageSource
+        );
+        setOriginalImageDimensions({
+          width: dimensions.originalImageWidth,
+          height: dimensions.originalImageHeight
+        });
+      } catch (error) {
+        console.error("Error fetching image dimensions:", error);
+      }
+    };
+    fetchImageDimensions();
+  }, [currentComicIndex]);
   const {
     footerInnerLineAnimation,
     footerLineCircleAnimation,
@@ -635,7 +691,7 @@ var ComicReader = ({
     savedComicImageScale,
     composedComicImageGestures,
     resetAnimation
-  } = useFooterAnimations({
+  } = useCustomAnimations({
     containerWidth,
     containerHeight,
     setIsListScrollEnabled
@@ -650,12 +706,11 @@ var ComicReader = ({
       });
       return;
     }
-    const { originalImageWidth, originalImageHeight } = await getActualImageDimensions(data[currentComicIndex].imageSource);
-    const adjustedImageWidth = +adjustedImageDimensions.split(",")[0];
-    const adjustedImageHeight = +adjustedImageDimensions.split(",")[1];
-    let adjustedCoordinateX = adjustedImageWidth / originalImageWidth * data[currentComicIndex].coordinates[comicZoomButtonPressCount].x;
+    const adjustedImageWidth = +adjustedImageDimensions.width;
+    const adjustedImageHeight = +adjustedImageDimensions.height;
+    let adjustedCoordinateX = adjustedImageWidth / originalImageDimensions.width * data[currentComicIndex].coordinates[comicZoomButtonPressCount].x;
     adjustedCoordinateX = -adjustedCoordinateX;
-    const adjustedCoordinateY = adjustedImageHeight / originalImageHeight * data[currentComicIndex].coordinates[comicZoomButtonPressCount].y;
+    const adjustedCoordinateY = adjustedImageHeight / originalImageDimensions.height * data[currentComicIndex].coordinates[comicZoomButtonPressCount].y;
     comicImageX.value = (0, import_react_native_reanimated5.withTiming)(adjustedCoordinateX, {
       duration: 1e3
     });
@@ -676,23 +731,32 @@ var ComicReader = ({
     setComicZoomButtonPressCount(comicZoomButtonPressCount + 1);
   };
   const handleComicIndexUpdate = (index) => {
-    flatListRef.current && // @ts-ignore
-    flatListRef?.current.scrollToIndex({
-      animated: true,
-      index
-    });
-    if (index < currentComicIndex) {
+    if (comicImageScale.value > 1) {
+      resetAnimation();
       setTimeout(() => {
-        onScrollAnimationEnd(screenWidth * index);
+        flatListRef.current && // @ts-ignore
+        flatListRef?.current.scrollToIndex({
+          animated: true,
+          index
+        });
       }, 1e3);
+    } else {
+      flatListRef.current && // @ts-ignore
+      flatListRef?.current.scrollToIndex({
+        animated: true,
+        index
+      });
     }
   };
   const onComicImageLayout = (event) => {
     const w = event.nativeEvent.layout.width;
     const h = event.nativeEvent.layout.height;
-    setAdjustedImageDimensions(`${w},${h}`);
+    setAdjustedImageDimensions({
+      width: w,
+      height: h
+    });
   };
-  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ import_react8.default.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ import_react8.default.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ import_react8.default.createElement(Reverse_default, { color: iconsColor });
+  const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ import_react9.default.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ import_react9.default.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ import_react9.default.createElement(Reverse_default, { color: iconsColor });
   const animatedComicImageStyles = (0, import_react_native_reanimated5.useAnimatedStyle)(() => ({
     transform: [
       { scale: comicImageScale.value },
@@ -700,25 +764,30 @@ var ComicReader = ({
       { translateY: comicImageY.value }
     ]
   }));
-  const renderItem = ({ item }) => /* @__PURE__ */ import_react8.default.createElement(
-    ComicImageView_default,
-    {
-      animatedComicImageStyles,
-      imageSource: item.imageSource,
-      currentComicIndex,
-      onLayout: onComicImageLayout
-    }
-  );
-  const onScrollAnimationEnd = (offset) => {
-    footerBallonTranslateX.value = (0, import_react_native_reanimated5.withSpring)(offset / 5);
-    footerBallonTranslateY.value = (0, import_react_native_reanimated5.withDelay)(500, (0, import_react_native_reanimated5.withSpring)(15));
+  const renderItem = ({ item, index }) => {
+    const isAnimationAllowed = currentComicIndex === index;
+    return /* @__PURE__ */ import_react9.default.createElement(
+      ComicImageView_default,
+      {
+        animatedComicImageStyles: isAnimationAllowed ? animatedComicImageStyles : null,
+        imageSource: item.imageSource,
+        currentComicIndex,
+        onLayout: onComicImageLayout
+      }
+    );
+  };
+  const debouncedOnScrollAnimationEnd = (offset) => {
+    footerBallonTranslateX.value = (0, import_react_native_reanimated5.withSpring)(
+      offset < comicBoundaries[1] ? 0 : offset / (data.length - 1) - HORIZONTAL_SPACING
+    );
+    footerBallonTranslateY.value = (0, import_react_native_reanimated5.withDelay)(1e3, (0, import_react_native_reanimated5.withSpring)(15));
     footerLineCircleAnimation.value = (0, import_react_native_reanimated5.withTiming)(1, {
       duration: 500
     });
-    footerBallonScale.value = (0, import_react_native_reanimated5.withDelay)(500, (0, import_react_native_reanimated5.withSpring)(0));
+    footerBallonScale.value = (0, import_react_native_reanimated5.withDelay)(1e3, (0, import_react_native_reanimated5.withSpring)(0));
     footerBallonRotateZ.value = (0, import_react_native_reanimated5.withSpring)(0);
   };
-  return /* @__PURE__ */ import_react8.default.createElement(import_react_native_gesture_handler3.GestureHandlerRootView, null, /* @__PURE__ */ import_react8.default.createElement(import_react_native6.View, { style: styles.container, onLayout }, /* @__PURE__ */ import_react8.default.createElement(import_react_native_gesture_handler3.GestureDetector, { gesture: composedComicImageGestures }, /* @__PURE__ */ import_react8.default.createElement(
+  return /* @__PURE__ */ import_react9.default.createElement(import_react_native_gesture_handler3.GestureHandlerRootView, null, /* @__PURE__ */ import_react9.default.createElement(import_react_native6.View, { style: styles.container, onLayout }, /* @__PURE__ */ import_react9.default.createElement(import_react_native_gesture_handler3.GestureDetector, { gesture: composedComicImageGestures }, /* @__PURE__ */ import_react9.default.createElement(
     import_react_native_gesture_handler3.FlatList,
     {
       ref: flatListRef,
@@ -730,38 +799,44 @@ var ComicReader = ({
       decelerationRate: "fast",
       scrollEnabled: isListScrollEnabled,
       horizontal: true,
-      onViewableItemsChanged: (e) => {
-        if (currentAnimationIndex === e.viewableItems[0]?.index)
-          return;
-        resetAnimation();
-        setComicZoomButtonPressCount(0);
-        setCurrentComicIndex(e.viewableItems[0]?.index || 0);
-        setCurrentAnimationIndex(e.viewableItems[0]?.index || 0);
-        setTimeout(() => {
-          if (e.viewableItems?.[0].index) {
-            onScrollAnimationEnd(
-              screenWidth * e.viewableItems[0].index || 1
-            );
-          }
-        }, 500);
-      },
+      showsHorizontalScrollIndicator: false,
       onScroll: (e) => {
+        if (e.nativeEvent.contentOffset.x < 0) {
+          return;
+        }
         footerBallonTranslateY.value = (0, import_react_native_reanimated5.withSpring)(-25);
-        const currentOffsetX = e.nativeEvent.contentOffset.x / 5;
+        const currentOffsetX = e.nativeEvent.contentOffset.x / (data.length - 1) - HORIZONTAL_SPACING;
         const velocityX = e.nativeEvent.velocity?.x || 0;
-        footerInnerLineAnimation.value = currentOffsetX;
-        footerBallonTranslateX.value = velocityX > 0 ? (0, import_react_native_reanimated5.withSpring)(currentOffsetX - 15) : (0, import_react_native_reanimated5.withSpring)(currentOffsetX + 15);
-        footerBallonRotateZ.value = (0, import_react_native_reanimated5.withSpring)(velocityX > 0 ? -10 : 10);
+        footerInnerLineAnimation.value = (0, import_react_native_reanimated5.withSpring)(currentOffsetX);
+        if (import_react_native6.Platform.OS === "ios") {
+          footerBallonTranslateX.value = (0, import_react_native_reanimated5.withSpring)(
+            e.nativeEvent.contentOffset.x < comicBoundaries[0] ? 0 : currentOffsetX
+          );
+        } else {
+          footerBallonTranslateX.value = velocityX > 0 ? (0, import_react_native_reanimated5.withSpring)(currentOffsetX - 15) : (0, import_react_native_reanimated5.withSpring)(currentOffsetX + 15);
+          footerBallonRotateZ.value = (0, import_react_native_reanimated5.withSpring)(
+            velocityX > 0 ? -10 : 10
+          );
+        }
         footerBallonScale.value = (0, import_react_native_reanimated5.withSpring)(1);
         footerLineCircleAnimation.value = (0, import_react_native_reanimated5.withTiming)(2, {
-          duration: 1e3
+          duration: 500
         });
+        if (comicBoundaries.includes(e.nativeEvent.contentOffset.x)) {
+          const currentIndex = comicBoundaries.indexOf(
+            e.nativeEvent.contentOffset.x
+          );
+          setCurrentComicIndex(currentIndex);
+          resetAnimation();
+          setComicZoomButtonPressCount(0);
+          debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+        }
       },
       onMomentumScrollEnd: (e) => {
-        onScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+        debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
       }
     }
-  ))), /* @__PURE__ */ import_react8.default.createElement(
+  ))), /* @__PURE__ */ import_react9.default.createElement(
     ComicZoomActionButton,
     {
       ...{
@@ -772,16 +847,16 @@ var ComicReader = ({
         zoomActionButtonColor
       }
     }
-  ), /* @__PURE__ */ import_react8.default.createElement(
+  ), data?.length > 1 ? /* @__PURE__ */ import_react9.default.createElement(
     Footer,
     {
       numberOfComics: numberOfItems,
       onUpdateComicIndex: handleComicIndexUpdate,
       currentComicIndex,
-      currentAnimationIndex,
       primaryColor: sliderPrimaryColor,
       secondaryColor: sliderSecondaryColor,
       iconColor: iconsColor,
+      textColor,
       animations: {
         footerInnerLineAnimation,
         footerLineCircleAnimation,
@@ -791,7 +866,7 @@ var ComicReader = ({
         footerBallonTranslateX
       }
     }
-  ));
+  ) : null);
 };
 
 // src/ComicReader/types.ts

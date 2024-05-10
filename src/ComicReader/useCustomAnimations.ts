@@ -1,13 +1,13 @@
 import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
 import { Gesture } from "react-native-gesture-handler";
 
-import { useFooterAnimationsProps } from "./types";
+import { useCustomAnimationsProps } from "./types";
 
-export const useFooterAnimations = ({
+export const useCustomAnimations = ({
   containerWidth,
   containerHeight,
   setIsListScrollEnabled,
-}: useFooterAnimationsProps) => {
+}: useCustomAnimationsProps) => {
   const isDoubleTaped = useSharedValue(false);
   const footerInnerLineAnimation = useSharedValue(0);
   const footerLineCircleAnimation = useSharedValue(1);

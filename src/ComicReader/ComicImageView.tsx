@@ -37,11 +37,15 @@ const ComicImageView = ({
   const loadingAnimatedStyles = useAnimatedStyle(() => ({
     opacity: loading.value,
   }));
+
   return (
     <Animated.View key={currentComicIndex}>
       <Animated.Image
         source={imageSource}
-        style={[styles.image, animatedComicImageStyles]}
+        style={[
+          styles.image,
+          animatedComicImageStyles ? animatedComicImageStyles : null,
+        ]}
         resizeMode="contain"
         // @ts-ignore
         onLayout={onLayout}
