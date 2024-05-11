@@ -10,7 +10,6 @@ The AnimatedButton feature allows users to `zoom in to a particular x and y posi
 
 https://github.com/asaeed14/react-native-comic-reader/assets/25408139/60f15ce1-74da-49d6-820e-8c85260b8a8b
 
-
 ## Requirements
 
 Before using this package, ensure that you have installed the following dependencies:
@@ -35,10 +34,7 @@ Along with the react-native-comic-reader package, we provide an Image Coordinate
 
 Explore the [Image Coordinates Finder Tool](https://imagecoordinatesfinder.web.app/) to simplify the process of preparing data for your comic reader applications.
 
-
 https://github.com/asaeed14/react-native-comic-reader/assets/25408139/9038879d-a6a7-4cd8-a28c-fe8981629d52
-
-
 
 ## Getting started
 
