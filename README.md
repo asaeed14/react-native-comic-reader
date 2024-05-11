@@ -1,14 +1,15 @@
 # react-native-comic-reader
 
-A React Native package for reading multiple comics with advanced features like native level animations and gesture handlers.
+A React Native package for reading multiple comics with advanced features like native-level animations and gesture handlers.
 
-This package offers smooth native level animations and supports various gestures including `slide to next item`, `double tap to zoom`, `two-fingers zoom-in/zoom-out`.
+This package offers smooth native-level animations and supports various gestures including `slide to next item`, `double tap to zoom`, `two-fingers zoom-in/zoom-out`.
 
 The AnimatedButton feature allows users to `zoom in to a particular x and y position` of the comic for seamless reading. Additionally, users can track the progress of the current comic with a `smooth progress bar` and navigate using footer buttons or by sliding left and right.
 
 ## Preview
 
-!['Preview'](./src//preview.gif)
+https://github.com/asaeed14/react-native-comic-reader/assets/25408139/60f15ce1-74da-49d6-820e-8c85260b8a8b
+
 
 ## Requirements
 
@@ -34,7 +35,10 @@ Along with the react-native-comic-reader package, we provide an Image Coordinate
 
 Explore the [Image Coordinates Finder Tool](https://imagecoordinatesfinder.web.app/) to simplify the process of preparing data for your comic reader applications.
 
-!['Web Preview'](./src//web-preview.gif)
+
+https://github.com/asaeed14/react-native-comic-reader/assets/25408139/9038879d-a6a7-4cd8-a28c-fe8981629d52
+
+
 
 ## Getting started
 
