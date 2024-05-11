@@ -2,7 +2,6 @@ import { Dimensions, StyleSheet } from "react-native";
 
 export const screenWidth = Dimensions.get("window").width;
 export const screenHeight = Dimensions.get("window").height;
-
 export const ACTION_BUTTON_SIZE = 50;
 export const HORIZONTAL_SPACING = 70;
 export const FOOTER_LINE_WIDTH = screenWidth - HORIZONTAL_SPACING;

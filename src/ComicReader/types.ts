@@ -1,5 +1,5 @@
 import { SharedValue } from "react-native-reanimated";
-import { ImageRequireSource, LayoutChangeEvent } from "react-native";
+import { ImageRequireSource } from "react-native";
 
 type Coordinates = {
   x: number;
@@ -37,8 +37,10 @@ export type FooterProps = {
 };
 
 export type ComicZoomActionButtonProps = {
-  containerWidth: SharedValue<number>;
-  containerHeight: SharedValue<number>;
+  containerDimensions: {
+    width: number;
+    height: number;
+  };
   handleButtonPress: () => void;
   buttonIcon: React.ReactElement;
   zoomActionButtonColor: string;
@@ -56,12 +58,12 @@ export type GetOriginalImageDimensionsReturnProps = {
 export type ComicImageViewProps = {
   imageSource: ImageSource;
   animatedComicImageStyles: {} | null;
-  currentComicIndex: number;
-  onLayout: (event: LayoutChangeEvent) => void;
 };
 
 export type useCustomAnimationsProps = {
-  containerWidth: SharedValue<number>;
-  containerHeight: SharedValue<number>;
-  setIsListScrollEnabled: (e: boolean) => void;
+  containerDimensions: {
+    width: number;
+    height: number;
+  };
+  handleFlatListScrollEnable: (isEnabled: boolean) => void;
 };

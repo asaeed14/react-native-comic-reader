@@ -162,8 +162,7 @@ var import_react_native_gesture_handler = require("react-native-gesture-handler"
 var import_react_native_reanimated = __toESM(require("react-native-reanimated"));
 var AnimatedTouchableOpacity = import_react_native_reanimated.default.createAnimatedComponent(import_react_native2.TouchableOpacity);
 var ComicZoomActionButton = ({
-  containerWidth,
-  containerHeight,
+  containerDimensions,
   handleButtonPress,
   buttonIcon,
   zoomActionButtonColor
@@ -193,12 +192,12 @@ var ComicZoomActionButton = ({
     buttonX.value = (0, import_react_native_reanimated.withDecay)({
       velocity: event.velocityX,
       rubberBandEffect: true,
-      clamp: [0, containerWidth.value - ACTION_BUTTON_SIZE]
+      clamp: [0, containerDimensions.width - ACTION_BUTTON_SIZE]
     });
     buttonY.value = (0, import_react_native_reanimated.withDecay)({
       velocity: event.velocityY,
       rubberBandEffect: true,
-      clamp: [0, -containerHeight.value]
+      clamp: [0, -containerDimensions.height]
     });
     buttonScale.value = (0, import_react_native_reanimated.withTiming)(1, { duration: 1e3 });
   });
@@ -254,12 +253,106 @@ var ComicZoomActionButton = ({
     /* @__PURE__ */ import_react.default.createElement(
       import_react_native2.TouchableOpacity,
       {
-        style: [styles.actionButton],
+        style: styles.actionButton,
         onPress: handleButtonPress
       },
       buttonIcon
     )
   ));
+};
+
+// src/ComicReader/useCustomAnimations.ts
+var import_react_native_reanimated2 = require("react-native-reanimated");
+var import_react_native_gesture_handler2 = require("react-native-gesture-handler");
+var useCustomAnimations = ({
+  containerDimensions,
+  handleFlatListScrollEnable
+}) => {
+  const isDoubleTaped = (0, import_react_native_reanimated2.useSharedValue)(false);
+  const footerInnerLineAnimation = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const footerLineCircleAnimation = (0, import_react_native_reanimated2.useSharedValue)(1);
+  const footerBallonTranslateX = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const footerBallonTranslateY = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const footerBallonRotateZ = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const footerBallonScale = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const comicImageX = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const comicImageY = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const comicImageScale = (0, import_react_native_reanimated2.useSharedValue)(1);
+  const savedComicImageX = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const savedComicImageY = (0, import_react_native_reanimated2.useSharedValue)(0);
+  const savedComicImageScale = (0, import_react_native_reanimated2.useSharedValue)(1);
+  const centerX = containerDimensions.width / 2;
+  const centerY = containerDimensions.height / 2;
+  const resetAnimation = () => {
+    comicImageX.value = (0, import_react_native_reanimated2.withTiming)(0, { duration: 1e3 });
+    comicImageY.value = (0, import_react_native_reanimated2.withTiming)(0, { duration: 1e3 });
+    comicImageScale.value = (0, import_react_native_reanimated2.withTiming)(1, { duration: 1e3 }, () => {
+      savedComicImageX.value = comicImageX.value;
+      savedComicImageY.value = comicImageY.value;
+      savedComicImageScale.value = comicImageScale.value;
+      (0, import_react_native_reanimated2.runOnJS)(handleFlatListScrollEnable)(true);
+    });
+  };
+  const doubleTap = import_react_native_gesture_handler2.Gesture.Tap().maxDuration(250).numberOfTaps(2).onStart((event) => {
+    if (isDoubleTaped.value || savedComicImageScale.value >= 2 || savedComicImageScale.value > 1) {
+      (0, import_react_native_reanimated2.runOnJS)(resetAnimation)();
+      isDoubleTaped.value = false;
+      return;
+    }
+    comicImageX.value = (0, import_react_native_reanimated2.withTiming)(-(event.x - centerX), { duration: 1e3 });
+    comicImageY.value = (0, import_react_native_reanimated2.withTiming)(-(event.y - centerY), { duration: 1e3 });
+    comicImageScale.value = (0, import_react_native_reanimated2.withTiming)(2, { duration: 1e3 }, () => {
+      savedComicImageX.value = comicImageX.value;
+      savedComicImageY.value = comicImageY.value;
+      savedComicImageScale.value = comicImageScale.value;
+      (0, import_react_native_reanimated2.runOnJS)(handleFlatListScrollEnable)(false);
+    });
+    isDoubleTaped.value = true;
+  });
+  const pan = import_react_native_gesture_handler2.Gesture.Pan().onChange((event) => {
+    if (event.translationX <= 0) {
+      comicImageX.value = savedComicImageX.value + event.translationX;
+    } else if (event.translationX > 0) {
+      comicImageX.value = savedComicImageX.value + event.translationX;
+    }
+    if (event.translationY <= 0) {
+      comicImageY.value = savedComicImageY.value + event.translationY;
+    } else if (event.translationY > 0) {
+      comicImageY.value = savedComicImageY.value + event.translationY;
+    }
+  }).onFinalize(() => {
+    savedComicImageX.value = comicImageX.value;
+    savedComicImageY.value = comicImageY.value;
+  });
+  const pinchGesture = import_react_native_gesture_handler2.Gesture.Pinch().onUpdate((e) => {
+    comicImageScale.value = savedComicImageScale.value * e.scale;
+  }).onFinalize(() => {
+    savedComicImageScale.value = comicImageScale.value;
+    if (comicImageScale.value > 1) {
+      (0, import_react_native_reanimated2.runOnJS)(handleFlatListScrollEnable)(false);
+    }
+  });
+  const composedComicImageGestures = import_react_native_gesture_handler2.Gesture.Simultaneous(
+    pan,
+    pinchGesture,
+    doubleTap
+  );
+  return {
+    footerInnerLineAnimation,
+    footerLineCircleAnimation,
+    footerBallonTranslateY,
+    footerBallonScale,
+    footerBallonRotateZ,
+    footerBallonTranslateX,
+    comicImageX,
+    comicImageY,
+    comicImageScale,
+    savedComicImageX,
+    savedComicImageY,
+    savedComicImageScale,
+    composedComicImageGestures,
+    resetAnimation
+  };
 };
 
 // src/ComicReader/icons/ArrowLeft.tsx
@@ -363,118 +456,18 @@ var getImageSize = async (uri) => {
   });
 };
 
-// src/ComicReader/useCustomAnimations.ts
-var import_react_native_reanimated2 = require("react-native-reanimated");
-var import_react_native_gesture_handler2 = require("react-native-gesture-handler");
-var useCustomAnimations = ({
-  containerWidth,
-  containerHeight,
-  setIsListScrollEnabled
-}) => {
-  const isDoubleTaped = (0, import_react_native_reanimated2.useSharedValue)(false);
-  const footerInnerLineAnimation = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const footerLineCircleAnimation = (0, import_react_native_reanimated2.useSharedValue)(1);
-  const footerBallonTranslateX = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const footerBallonTranslateY = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const footerBallonRotateZ = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const footerBallonScale = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const comicImageX = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const comicImageY = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const comicImageScale = (0, import_react_native_reanimated2.useSharedValue)(1);
-  const savedComicImageX = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const savedComicImageY = (0, import_react_native_reanimated2.useSharedValue)(0);
-  const savedComicImageScale = (0, import_react_native_reanimated2.useSharedValue)(1);
-  const centerX = containerWidth.value / 2;
-  const centerY = containerHeight.value / 2;
-  const resetAnimation = () => {
-    comicImageX.value = (0, import_react_native_reanimated2.withTiming)(0, { duration: 1e3 });
-    comicImageY.value = (0, import_react_native_reanimated2.withTiming)(0, { duration: 1e3 });
-    comicImageScale.value = (0, import_react_native_reanimated2.withTiming)(1, { duration: 1e3 }, () => {
-      savedComicImageX.value = comicImageX.value;
-      savedComicImageY.value = comicImageY.value;
-      savedComicImageScale.value = comicImageScale.value;
-      (0, import_react_native_reanimated2.runOnJS)(setIsListScrollEnabled)(true);
-    });
-  };
-  const doubleTap = import_react_native_gesture_handler2.Gesture.Tap().maxDuration(250).numberOfTaps(2).onStart((event) => {
-    if (isDoubleTaped.value || savedComicImageScale.value >= 2 || savedComicImageScale.value > 1) {
-      (0, import_react_native_reanimated2.runOnJS)(resetAnimation)();
-      isDoubleTaped.value = false;
-      return;
-    }
-    comicImageX.value = (0, import_react_native_reanimated2.withTiming)(-(event.x - centerX), { duration: 1e3 });
-    comicImageY.value = (0, import_react_native_reanimated2.withTiming)(-(event.y - centerY), { duration: 1e3 });
-    comicImageScale.value = (0, import_react_native_reanimated2.withTiming)(2, { duration: 1e3 }, () => {
-      savedComicImageX.value = comicImageX.value;
-      savedComicImageY.value = comicImageY.value;
-      savedComicImageScale.value = comicImageScale.value;
-      (0, import_react_native_reanimated2.runOnJS)(setIsListScrollEnabled)(false);
-    });
-    isDoubleTaped.value = true;
-  });
-  const pan = import_react_native_gesture_handler2.Gesture.Pan().onChange((event) => {
-    if (event.translationX <= 0) {
-      comicImageX.value = savedComicImageX.value + event.translationX;
-    } else if (event.translationX > 0) {
-      comicImageX.value = savedComicImageX.value + event.translationX;
-    }
-    if (event.translationY <= 0) {
-      comicImageY.value = savedComicImageY.value + event.translationY;
-    } else if (event.translationY > 0) {
-      comicImageY.value = savedComicImageY.value + event.translationY;
-    }
-  }).onFinalize(() => {
-    savedComicImageX.value = comicImageX.value;
-    savedComicImageY.value = comicImageY.value;
-  });
-  const pinchGesture = import_react_native_gesture_handler2.Gesture.Pinch().onUpdate((e) => {
-    comicImageScale.value = savedComicImageScale.value * e.scale;
-  }).onFinalize(() => {
-    savedComicImageScale.value = comicImageScale.value;
-    if (comicImageScale.value > 1) {
-      (0, import_react_native_reanimated2.runOnJS)(setIsListScrollEnabled)(false);
-    }
-  });
-  const composedComicImageGestures = import_react_native_gesture_handler2.Gesture.Simultaneous(
-    pan,
-    pinchGesture,
-    doubleTap
-  );
-  return {
-    footerInnerLineAnimation,
-    footerLineCircleAnimation,
-    footerBallonTranslateY,
-    footerBallonScale,
-    footerBallonRotateZ,
-    footerBallonTranslateX,
-    comicImageX,
-    comicImageY,
-    comicImageScale,
-    savedComicImageX,
-    savedComicImageY,
-    savedComicImageScale,
-    composedComicImageGestures,
-    resetAnimation
-  };
-};
-
 // src/ComicReader/ComicImageView.tsx
 var import_react7 = __toESM(require("react"));
 var import_react_native4 = require("react-native");
 var import_react_native_reanimated3 = __toESM(require("react-native-reanimated"));
 var ComicImageView = ({
   imageSource,
-  animatedComicImageStyles,
-  currentComicIndex,
-  onLayout
+  animatedComicImageStyles
 }) => {
-  const [isLoading, setIsLoading] = (0, import_react7.useState)(false);
+  const [isLoading, setIsLoading] = (0, import_react7.useState)(true);
   const loading = (0, import_react_native_reanimated3.useSharedValue)(0.3);
   const onLoadEnd = () => {
     setIsLoading(false);
-  };
-  const onLoadStart = () => {
-    setIsLoading(true);
   };
   (0, import_react7.useEffect)(() => {
     if (isLoading) {
@@ -486,7 +479,7 @@ var ComicImageView = ({
   const loadingAnimatedStyles = (0, import_react_native_reanimated3.useAnimatedStyle)(() => ({
     opacity: loading.value
   }));
-  return /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated3.default.View, { key: currentComicIndex }, /* @__PURE__ */ import_react7.default.createElement(
+  return /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated3.default.View, { key: imageSource.toString() }, /* @__PURE__ */ import_react7.default.createElement(
     import_react_native_reanimated3.default.Image,
     {
       source: imageSource,
@@ -495,9 +488,7 @@ var ComicImageView = ({
         animatedComicImageStyles ? animatedComicImageStyles : null
       ],
       resizeMode: "contain",
-      onLayout,
-      onLoadEnd,
-      onLoadStart
+      onLoadEnd
     }
   ), isLoading ? /* @__PURE__ */ import_react7.default.createElement(import_react_native_reanimated3.default.View, { style: [styles.imageLoader, loadingAnimatedStyles] }, /* @__PURE__ */ import_react7.default.createElement(import_react_native4.ActivityIndicator, null)) : null);
 };
@@ -633,32 +624,28 @@ var ComicReader = ({
 }) => {
   const flatListRef = (0, import_react9.useRef)(null);
   const numberOfItems = data.length;
-  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react9.useState)(0);
   const [currentComicIndex, setCurrentComicIndex] = (0, import_react9.useState)(0);
-  const [isListScrollEnabled, setIsListScrollEnabled] = (0, import_react9.useState)(true);
-  const [comicBoundaries, setComicBoundaries] = (0, import_react9.useState)([]);
-  const containerWidth = (0, import_react_native_reanimated5.useSharedValue)(0);
-  const containerHeight = (0, import_react_native_reanimated5.useSharedValue)(0);
-  const [originalImageDimensions, setOriginalImageDimensions] = (0, import_react9.useState)({
+  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = (0, import_react9.useState)(0);
+  const comicBoundaries = (0, import_react_native_reanimated5.useSharedValue)(
+    data.map((_item, index) => {
+      return screenWidth * index;
+    })
+  );
+  const [containerDimensions, setContainerDimensions] = (0, import_react9.useState)({
     width: 0,
     height: 0
   });
-  const [adjustedImageDimensions, setAdjustedImageDimensions] = (0, import_react9.useState)({
+  const originalImageDimensions = (0, import_react_native_reanimated5.useSharedValue)({
     width: 0,
     height: 0
   });
   const onLayout = (event) => {
-    containerWidth.value = event.nativeEvent.layout.width;
-    containerHeight.value = event.nativeEvent.layout.height;
+    setContainerDimensions({
+      width: event.nativeEvent.layout.width,
+      height: event.nativeEvent.layout.height
+    });
   };
   const { getOriginalImageDimensions } = useOriginalImageDimensions();
-  (0, import_react9.useEffect)(() => {
-    setComicBoundaries(
-      data.map((_item, index) => {
-        return screenWidth * index;
-      })
-    );
-  }, []);
   (0, import_react9.useEffect)(() => {
     const fetchImageDimensions = async () => {
       try {
@@ -666,16 +653,21 @@ var ComicReader = ({
           // @ts-ignore
           data[currentComicIndex].imageSource
         );
-        setOriginalImageDimensions({
+        originalImageDimensions.value = {
           width: dimensions.originalImageWidth,
           height: dimensions.originalImageHeight
-        });
+        };
       } catch (error) {
         console.error("Error fetching image dimensions:", error);
       }
     };
     fetchImageDimensions();
   }, [currentComicIndex]);
+  const handleFlatListScrollEnable = (isEnabled) => {
+    flatListRef.current.setNativeProps({
+      scrollEnabled: isEnabled
+    });
+  };
   const {
     footerInnerLineAnimation,
     footerLineCircleAnimation,
@@ -692,9 +684,8 @@ var ComicReader = ({
     composedComicImageGestures,
     resetAnimation
   } = useCustomAnimations({
-    containerWidth,
-    containerHeight,
-    setIsListScrollEnabled
+    containerDimensions,
+    handleFlatListScrollEnable
   });
   const handleComicZoomButton = async () => {
     if (comicZoomButtonPressCount > data[currentComicIndex]?.coordinates.length - 1) {
@@ -702,20 +693,20 @@ var ComicReader = ({
       comicImageX.value = (0, import_react_native_reanimated5.withTiming)(0, { duration: 1e3 });
       comicImageY.value = (0, import_react_native_reanimated5.withTiming)(0, { duration: 1e3 });
       comicImageScale.value = (0, import_react_native_reanimated5.withTiming)(1, { duration: 1e3 }, () => {
-        (0, import_react_native_reanimated5.runOnJS)(setIsListScrollEnabled)(true);
+        (0, import_react_native_reanimated5.runOnJS)(handleFlatListScrollEnable)(true);
       });
       return;
     }
-    const adjustedImageWidth = +adjustedImageDimensions.width;
-    const adjustedImageHeight = +adjustedImageDimensions.height;
-    let adjustedCoordinateX = adjustedImageWidth / originalImageDimensions.width * data[currentComicIndex].coordinates[comicZoomButtonPressCount].x;
+    const adjustedImageWidth = screenWidth;
+    const adjustedImageHeight = screenHeight;
+    let adjustedCoordinateX = adjustedImageWidth / originalImageDimensions.value.width * data[currentComicIndex].coordinates[comicZoomButtonPressCount].x;
     adjustedCoordinateX = -adjustedCoordinateX;
-    const adjustedCoordinateY = adjustedImageHeight / originalImageDimensions.height * data[currentComicIndex].coordinates[comicZoomButtonPressCount].y;
+    const adjustedCoordinateY = adjustedImageHeight / originalImageDimensions.value.height * data[currentComicIndex].coordinates[comicZoomButtonPressCount].y;
     comicImageX.value = (0, import_react_native_reanimated5.withTiming)(adjustedCoordinateX, {
       duration: 1e3
     });
     comicImageScale.value = (0, import_react_native_reanimated5.withTiming)(2, { duration: 1e3 }, () => {
-      (0, import_react_native_reanimated5.runOnJS)(setIsListScrollEnabled)(false);
+      (0, import_react_native_reanimated5.runOnJS)(handleFlatListScrollEnable)(false);
     });
     comicImageY.value = (0, import_react_native_reanimated5.withTiming)(
       adjustedCoordinateY,
@@ -748,14 +739,6 @@ var ComicReader = ({
       });
     }
   };
-  const onComicImageLayout = (event) => {
-    const w = event.nativeEvent.layout.width;
-    const h = event.nativeEvent.layout.height;
-    setAdjustedImageDimensions({
-      width: w,
-      height: h
-    });
-  };
   const buttonIcon = comicZoomButtonPressCount === 0 ? /* @__PURE__ */ import_react9.default.createElement(Zoom_default, { color: iconsColor }) : comicZoomButtonPressCount < data[currentComicIndex].coordinates.length ? /* @__PURE__ */ import_react9.default.createElement(ArrowRight_default, { color: iconsColor }) : /* @__PURE__ */ import_react9.default.createElement(Reverse_default, { color: iconsColor });
   const animatedComicImageStyles = (0, import_react_native_reanimated5.useAnimatedStyle)(() => ({
     transform: [
@@ -770,15 +753,13 @@ var ComicReader = ({
       ComicImageView_default,
       {
         animatedComicImageStyles: isAnimationAllowed ? animatedComicImageStyles : null,
-        imageSource: item.imageSource,
-        currentComicIndex,
-        onLayout: onComicImageLayout
+        imageSource: item.imageSource
       }
     );
   };
-  const debouncedOnScrollAnimationEnd = (offset) => {
+  const OnScrollAnimationEnd = (offset) => {
     footerBallonTranslateX.value = (0, import_react_native_reanimated5.withSpring)(
-      offset < comicBoundaries[1] ? 0 : offset / (data.length - 1) - HORIZONTAL_SPACING
+      offset < comicBoundaries.value[1] ? 0 : offset / (data.length - 1) - HORIZONTAL_SPACING
     );
     footerBallonTranslateY.value = (0, import_react_native_reanimated5.withDelay)(1e3, (0, import_react_native_reanimated5.withSpring)(15));
     footerLineCircleAnimation.value = (0, import_react_native_reanimated5.withTiming)(1, {
@@ -797,7 +778,7 @@ var ComicReader = ({
       keyExtractor: (item) => item.id,
       snapToInterval: screenWidth,
       decelerationRate: "fast",
-      scrollEnabled: isListScrollEnabled,
+      scrollEnabled: true,
       horizontal: true,
       showsHorizontalScrollIndicator: false,
       onScroll: (e) => {
@@ -810,7 +791,7 @@ var ComicReader = ({
         footerInnerLineAnimation.value = (0, import_react_native_reanimated5.withSpring)(currentOffsetX);
         if (import_react_native6.Platform.OS === "ios") {
           footerBallonTranslateX.value = (0, import_react_native_reanimated5.withSpring)(
-            e.nativeEvent.contentOffset.x < comicBoundaries[0] ? 0 : currentOffsetX
+            e.nativeEvent.contentOffset.x < comicBoundaries.value[0] ? 0 : currentOffsetX
           );
         } else {
           footerBallonTranslateX.value = velocityX > 0 ? (0, import_react_native_reanimated5.withSpring)(currentOffsetX - 15) : (0, import_react_native_reanimated5.withSpring)(currentOffsetX + 15);
@@ -822,32 +803,33 @@ var ComicReader = ({
         footerLineCircleAnimation.value = (0, import_react_native_reanimated5.withTiming)(2, {
           duration: 500
         });
-        if (comicBoundaries.includes(e.nativeEvent.contentOffset.x)) {
-          const currentIndex = comicBoundaries.indexOf(
+        if (comicBoundaries.value.includes(e.nativeEvent.contentOffset.x)) {
+          const currentIndex = comicBoundaries.value.indexOf(
             e.nativeEvent.contentOffset.x
           );
           setCurrentComicIndex(currentIndex);
-          resetAnimation();
           setComicZoomButtonPressCount(0);
-          debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+          OnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
         }
       },
       onMomentumScrollEnd: (e) => {
-        debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
-      }
+        OnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+      },
+      initialNumToRender: 2,
+      windowSize: 2,
+      maxToRenderPerBatch: 2
     }
   ))), /* @__PURE__ */ import_react9.default.createElement(
     ComicZoomActionButton,
     {
       ...{
-        containerHeight,
-        containerWidth,
+        containerDimensions,
         buttonIcon,
         handleButtonPress: handleComicZoomButton,
         zoomActionButtonColor
       }
     }
-  ), data?.length > 1 ? /* @__PURE__ */ import_react9.default.createElement(
+  ), data.length > 1 ? /* @__PURE__ */ import_react9.default.createElement(
     Footer,
     {
       numberOfComics: numberOfItems,

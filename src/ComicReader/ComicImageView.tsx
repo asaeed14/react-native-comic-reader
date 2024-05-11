@@ -13,17 +13,12 @@ import { styles } from "./style";
 const ComicImageView = ({
   imageSource,
   animatedComicImageStyles,
-  currentComicIndex,
-  onLayout,
 }: ComicImageViewProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const loading = useSharedValue(0.3);
 
   const onLoadEnd = () => {
     setIsLoading(false);
-  };
-  const onLoadStart = () => {
-    setIsLoading(true);
   };
 
   useEffect(() => {
@@ -39,7 +34,7 @@ const ComicImageView = ({
   }));
 
   return (
-    <Animated.View key={currentComicIndex}>
+    <Animated.View key={imageSource.toString()}>
       <Animated.Image
         source={imageSource}
         style={[
@@ -47,10 +42,7 @@ const ComicImageView = ({
           animatedComicImageStyles ? animatedComicImageStyles : null,
         ]}
         resizeMode="contain"
-        // @ts-ignore
-        onLayout={onLayout}
         onLoadEnd={onLoadEnd}
-        onLoadStart={onLoadStart}
       />
       {isLoading ? (
         <Animated.View style={[styles.imageLoader, loadingAnimatedStyles]}>

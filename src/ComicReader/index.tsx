@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { LayoutChangeEvent, Platform, View } from "react-native";
+import { Platform, View } from "react-native";
 import {
   FlatList,
   GestureDetector,
@@ -14,12 +14,12 @@ import {
   withTiming,
 } from "react-native-reanimated";
 
-import { HORIZONTAL_SPACING, screenWidth, styles } from "./style";
+import { HORIZONTAL_SPACING, screenHeight, screenWidth, styles } from "./style";
 import { ComicZoomActionButton } from "./ComicZoomActionButton";
+import { useCustomAnimations } from "./useCustomAnimations";
 import { ArrowRightIcon, ReverseIcon, ZoomIcon } from "./icons";
 import { ComicItem, ComicReaderProps } from "./types";
 import { useOriginalImageDimensions } from "./util";
-import { useCustomAnimations } from "./useCustomAnimations";
 import ComicImageView from "./ComicImageView";
 import { Footer } from "./footer";
 
@@ -34,15 +34,14 @@ export const ComicReader = ({
   const flatListRef = useRef(null);
 
   const numberOfItems = data.length;
-  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = useState(0);
   const [currentComicIndex, setCurrentComicIndex] = useState(0);
-  const [isListScrollEnabled, setIsListScrollEnabled] = useState(true);
-  const [comicBoundaries, setComicBoundaries] = useState<number[]>([]);
-
-  const containerWidth = useSharedValue(0);
-  const containerHeight = useSharedValue(0);
-
-  const [originalImageDimensions, setOriginalImageDimensions] = useState<{
+  const [comicZoomButtonPressCount, setComicZoomButtonPressCount] = useState(0);
+  const comicBoundaries = useSharedValue<number[]>(
+    data.map((_item, index) => {
+      return screenWidth * index;
+    })
+  );
+  const [containerDimensions, setContainerDimensions] = useState<{
     width: number;
     height: number;
   }>({
@@ -50,27 +49,18 @@ export const ComicReader = ({
     height: 0,
   });
 
-  const [adjustedImageDimensions, setAdjustedImageDimensions] = useState<{
-    width: number;
-    height: number;
-  }>({
+  const originalImageDimensions = useSharedValue({
     width: 0,
     height: 0,
   });
 
   const onLayout = (event: any) => {
-    containerWidth.value = event.nativeEvent.layout.width;
-    containerHeight.value = event.nativeEvent.layout.height;
+    setContainerDimensions({
+      width: event.nativeEvent.layout.width,
+      height: event.nativeEvent.layout.height,
+    });
   };
   const { getOriginalImageDimensions } = useOriginalImageDimensions();
-
-  useEffect(() => {
-    setComicBoundaries(
-      data.map((_item, index) => {
-        return screenWidth * index;
-      })
-    );
-  }, []);
 
   useEffect(() => {
     const fetchImageDimensions = async () => {
@@ -79,10 +69,10 @@ export const ComicReader = ({
           // @ts-ignore
           data[currentComicIndex].imageSource
         );
-        setOriginalImageDimensions({
+        originalImageDimensions.value = {
           width: dimensions.originalImageWidth,
           height: dimensions.originalImageHeight,
-        });
+        };
       } catch (error) {
         console.error("Error fetching image dimensions:", error);
       }
@@ -90,6 +80,13 @@ export const ComicReader = ({
 
     fetchImageDimensions();
   }, [currentComicIndex]);
+
+  const handleFlatListScrollEnable = (isEnabled: boolean) => {
+    //@ts-ignore
+    flatListRef.current.setNativeProps({
+      scrollEnabled: isEnabled,
+    });
+  };
 
   const {
     footerInnerLineAnimation,
@@ -107,9 +104,8 @@ export const ComicReader = ({
     composedComicImageGestures,
     resetAnimation,
   } = useCustomAnimations({
-    containerWidth,
-    containerHeight,
-    setIsListScrollEnabled,
+    containerDimensions,
+    handleFlatListScrollEnable,
   });
 
   const handleComicZoomButton = async () => {
@@ -121,22 +117,22 @@ export const ComicReader = ({
       comicImageX.value = withTiming(0, { duration: 1000 });
       comicImageY.value = withTiming(0, { duration: 1000 });
       comicImageScale.value = withTiming(1, { duration: 1000 }, () => {
-        runOnJS(setIsListScrollEnabled)(true);
+        runOnJS(handleFlatListScrollEnable)(true);
       });
       return;
     }
 
-    const adjustedImageWidth = +adjustedImageDimensions.width;
-    const adjustedImageHeight = +adjustedImageDimensions.height;
+    const adjustedImageWidth = screenWidth;
+    const adjustedImageHeight = screenHeight;
 
     let adjustedCoordinateX =
-      (adjustedImageWidth / originalImageDimensions.width) *
+      (adjustedImageWidth / originalImageDimensions.value.width) *
       data[currentComicIndex].coordinates[comicZoomButtonPressCount].x;
 
     adjustedCoordinateX = -adjustedCoordinateX;
 
     const adjustedCoordinateY =
-      (adjustedImageHeight / originalImageDimensions.height) *
+      (adjustedImageHeight / originalImageDimensions.value.height) *
       data[currentComicIndex].coordinates[comicZoomButtonPressCount].y;
 
     comicImageX.value = withTiming(adjustedCoordinateX, {
@@ -144,7 +140,7 @@ export const ComicReader = ({
     });
 
     comicImageScale.value = withTiming(2, { duration: 1000 }, () => {
-      runOnJS(setIsListScrollEnabled)(false);
+      runOnJS(handleFlatListScrollEnable)(false);
     });
 
     comicImageY.value = withTiming(
@@ -183,16 +179,6 @@ export const ComicReader = ({
     }
   };
 
-  const onComicImageLayout = (event: LayoutChangeEvent) => {
-    const w = event.nativeEvent.layout.width;
-    const h = event.nativeEvent.layout.height;
-
-    setAdjustedImageDimensions({
-      width: w,
-      height: h,
-    });
-  };
-
   const buttonIcon =
     comicZoomButtonPressCount === 0 ? (
       <ZoomIcon color={iconsColor} />
@@ -219,15 +205,13 @@ export const ComicReader = ({
           isAnimationAllowed ? animatedComicImageStyles : null
         }
         imageSource={item.imageSource}
-        currentComicIndex={currentComicIndex}
-        onLayout={onComicImageLayout}
       />
     );
   };
 
-  const debouncedOnScrollAnimationEnd = (offset: number) => {
+  const OnScrollAnimationEnd = (offset: number) => {
     footerBallonTranslateX.value = withSpring(
-      offset < comicBoundaries[1]
+      offset < comicBoundaries.value[1]
         ? 0
         : offset / (data.length - 1) - HORIZONTAL_SPACING
     );
@@ -252,7 +236,7 @@ export const ComicReader = ({
             keyExtractor={(item: any) => item.id}
             snapToInterval={screenWidth}
             decelerationRate="fast"
-            scrollEnabled={isListScrollEnabled}
+            scrollEnabled={true}
             horizontal
             showsHorizontalScrollIndicator={false}
             onScroll={(e) => {
@@ -260,6 +244,7 @@ export const ComicReader = ({
                 return;
               }
               footerBallonTranslateY.value = withSpring(-25);
+
               const currentOffsetX =
                 e.nativeEvent.contentOffset.x / (data.length - 1) -
                 HORIZONTAL_SPACING;
@@ -268,7 +253,7 @@ export const ComicReader = ({
               footerInnerLineAnimation.value = withSpring(currentOffsetX);
               if (Platform.OS === "ios") {
                 footerBallonTranslateX.value = withSpring(
-                  e.nativeEvent.contentOffset.x < comicBoundaries[0]
+                  e.nativeEvent.contentOffset.x < comicBoundaries.value[0]
                     ? 0
                     : currentOffsetX
                 );
@@ -288,33 +273,35 @@ export const ComicReader = ({
               });
 
               // this will run on each boundary reached
-              if (comicBoundaries.includes(e.nativeEvent.contentOffset.x)) {
-                const currentIndex = comicBoundaries.indexOf(
+              if (
+                comicBoundaries.value.includes(e.nativeEvent.contentOffset.x)
+              ) {
+                const currentIndex = comicBoundaries.value.indexOf(
                   e.nativeEvent.contentOffset.x
                 );
-
                 setCurrentComicIndex(currentIndex);
-                resetAnimation();
                 setComicZoomButtonPressCount(0);
-                debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+                OnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
               }
             }}
             onMomentumScrollEnd={(e) => {
-              debouncedOnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
+              OnScrollAnimationEnd(e.nativeEvent.contentOffset.x);
             }}
+            initialNumToRender={2}
+            windowSize={2}
+            maxToRenderPerBatch={2}
           />
         </GestureDetector>
       </View>
       <ComicZoomActionButton
         {...{
-          containerHeight,
-          containerWidth,
+          containerDimensions,
           buttonIcon,
           handleButtonPress: handleComicZoomButton,
           zoomActionButtonColor: zoomActionButtonColor,
         }}
       />
-      {data?.length > 1 ? (
+      {data.length > 1 ? (
         <Footer
           numberOfComics={numberOfItems}
           onUpdateComicIndex={handleComicIndexUpdate}

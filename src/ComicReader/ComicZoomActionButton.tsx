@@ -18,8 +18,7 @@ const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity);
 
 export const ComicZoomActionButton = ({
-  containerWidth,
-  containerHeight,
+  containerDimensions,
   handleButtonPress,
   buttonIcon,
   zoomActionButtonColor,
@@ -55,12 +54,12 @@ export const ComicZoomActionButton = ({
       buttonX.value = withDecay({
         velocity: event.velocityX,
         rubberBandEffect: true,
-        clamp: [0, containerWidth.value - ACTION_BUTTON_SIZE],
+        clamp: [0, containerDimensions.width - ACTION_BUTTON_SIZE],
       });
       buttonY.value = withDecay({
         velocity: event.velocityY,
         rubberBandEffect: true,
-        clamp: [0, -containerHeight.value],
+        clamp: [0, -containerDimensions.height],
       });
       buttonScale.value = withTiming(1, { duration: 1000 });
     });
@@ -112,7 +111,7 @@ export const ComicZoomActionButton = ({
         />
 
         <TouchableOpacity
-          style={[styles.actionButton]}
+          style={styles.actionButton}
           onPress={handleButtonPress}
         >
           {buttonIcon}

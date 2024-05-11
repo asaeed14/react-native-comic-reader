@@ -4,9 +4,8 @@ import { Gesture } from "react-native-gesture-handler";
 import { useCustomAnimationsProps } from "./types";
 
 export const useCustomAnimations = ({
-  containerWidth,
-  containerHeight,
-  setIsListScrollEnabled,
+  containerDimensions,
+  handleFlatListScrollEnable,
 }: useCustomAnimationsProps) => {
   const isDoubleTaped = useSharedValue(false);
   const footerInnerLineAnimation = useSharedValue(0);
@@ -25,8 +24,8 @@ export const useCustomAnimations = ({
   const savedComicImageY = useSharedValue(0);
   const savedComicImageScale = useSharedValue(1);
 
-  const centerX = containerWidth.value / 2;
-  const centerY = containerHeight.value / 2;
+  const centerX = containerDimensions.width / 2;
+  const centerY = containerDimensions.height / 2;
 
   const resetAnimation = () => {
     comicImageX.value = withTiming(0, { duration: 1000 });
@@ -35,7 +34,7 @@ export const useCustomAnimations = ({
       savedComicImageX.value = comicImageX.value;
       savedComicImageY.value = comicImageY.value;
       savedComicImageScale.value = comicImageScale.value;
-      runOnJS(setIsListScrollEnabled)(true);
+      runOnJS(handleFlatListScrollEnable)(true);
     });
   };
 
@@ -58,7 +57,7 @@ export const useCustomAnimations = ({
         savedComicImageX.value = comicImageX.value;
         savedComicImageY.value = comicImageY.value;
         savedComicImageScale.value = comicImageScale.value;
-        runOnJS(setIsListScrollEnabled)(false);
+        runOnJS(handleFlatListScrollEnable)(false);
       });
       isDoubleTaped.value = true;
     });
@@ -89,7 +88,7 @@ export const useCustomAnimations = ({
     .onFinalize(() => {
       savedComicImageScale.value = comicImageScale.value;
       if (comicImageScale.value > 1) {
-        runOnJS(setIsListScrollEnabled)(false);
+        runOnJS(handleFlatListScrollEnable)(false);
       }
     });
 
